@@ -1,0 +1,83 @@
+#include<iostream>
+#include<string>
+using namespace std;
+class letter {
+private:
+	string letter_;
+public:
+
+	letter(char a1, char a2 = ' ', char a3 = ' ',char a4=' ') {
+
+		if (a2 == ' ') {
+			letter_ = a1;
+			goto aa;
+		}
+
+		if (a3 == ' ') {
+			letter_ = a1;
+			letter_ += a2;
+			goto aa;
+		}
+
+		if (a4 == ' ') {
+			letter_ = a1;
+			letter_ += a2;
+			letter_ += a3;
+			goto aa;
+		}
+
+		letter_ = a1;
+		letter_ += a2;
+		letter_ += a3;
+		letter_ += a4;
+
+	aa: extern int x;
+	}
+	string tostring(){
+		return letter_;
+	}
+};
+class alphabet {
+private:
+	letter arr1[10] = { ' ', 'I',{ 'I','I' },{ 'I','I','I' },{ 'I','V' },'V',{ 'V','I' },{ 'V','I','I' },{ 'V','I','I','I' },{ 'I','X' } };
+	letter arr2[10] = {' ', 'X',{ 'X','X' },{ 'X','X','X' },{ 'X','L' },'L',{ 'L','X' },{ 'L','X','X' },{ 'L','X','X','X' },{ 'X','C' } };
+	letter arr3[10] = {' ', 'C',{ 'C','C' },{ 'C','C','C' },{ 'C','D' },'D',{ 'D','C' },{ 'D','C','C' },{ 'D','C','C','C' },{ 'C','M' } };
+	letter arr4[3]  = {'M',{ 'M','M' },{ 'M','M','M' }};
+public:
+	string rom(int a) {
+		string b;
+		if (a == 0)
+			return "0";
+		 if (a < 10) {
+			 return arr1[a].tostring();
+	     }
+		 if (a < 100) {
+			 b = arr2[a / 10].tostring();
+			 return (b+arr1[a%10].tostring());
+		 }
+		 if (a < 1000) {
+			 b = arr3[a / 100].tostring();
+			 a %= 100;
+			 b+= arr2[a / 10].tostring();
+			 return (b + arr1[a % 10].tostring());
+		 }
+		 if (a < 4000) {
+			 b = arr4[(a / 1000)-1].tostring();
+			 a %= 1000;
+			 b += arr3[a / 100].tostring();
+			 a %= 100;
+			 b += arr2[a / 10].tostring();
+			 return (b + arr1[a % 10].tostring());
+		 }
+		 return"The figure is very large";
+	}
+};
+int main() {
+	alphabet a;
+	int n;
+	cin >> n;
+	system("cls");
+	cout << a.rom(n)<<'\n';
+	system("pause");
+	return 0;
+}
